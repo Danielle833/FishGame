@@ -1,0 +1,1 @@
+This is my fishing game, Fishing Frenzy! It includes 10 catch-able fish, an inventory where fish can be sold, a store where upgrades can be bought, and various achievements that the player can earn. All of the assets were designed by me.
