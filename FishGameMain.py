@@ -228,7 +228,7 @@ class Achievement:
         screen.blit(achievement_unlocked_surface, achievement_unlocked_rect)
 
 
-eliteUpgrader = Achievement("Elite Upgrader", "Buy every upgrade")
+eliteUpgrader = Achievement("Elite Upgrader", "Buy half of the upgrades")
 thousandaire = Achievement("Thousand-aire", "Earn $1000")
 luxuryEquipment = Achievement("Luxury Equipment", "Buy the best equipment")
 seasonedPro = Achievement("Seasoned Pro", "Spend 10+ minutes in-game")
@@ -597,17 +597,17 @@ while run:
         if store_prices[store_item] == "N/A":
             upgrader_counter += 1
 
-    if upgrader_counter >= 1 and display_timer_check is False and eliteUpgrader.status is False:
+    if upgrader_counter >= 3 and display_timer_check is False and eliteUpgrader.status is False:
         display_timer = pygame.time.get_ticks()
         display_timer_check = True
 
-    if upgrader_counter >= 1 and eliteUpgrader.status is False:
+    if upgrader_counter >= 3 and eliteUpgrader.status is False:
         if pygame.time.get_ticks() - display_timer >= 4000:
             display_timer_check = False
             eliteUpgrader.status = True
         else:
             eliteUpgrader.displayAchievement(screen)
-    elif upgrader_counter > 1 and eliteUpgrader.status is False:
+    elif upgrader_counter < 3 and eliteUpgrader.status is False:
         upgrader_counter = 0
 
     # thousandaire:
@@ -646,9 +646,15 @@ while run:
 
 
     # master fisher:
-    if len(master_fisher_list) == 10:
-        masterFisher.displayAchievement(screen)
-        master_fisher_list += 1
+    if len(master_fisher_list) == 10 and display_timer_check is False and masterFisher.status is False:
+        display_timer = pygame.time.get_ticks()
+        display_timer_check = True
+    if masterFisher.status is False and len(master_fisher_list) == 10:
+        if pygame.time.get_ticks() - display_timer >= 4000:
+            display_timer_check = False
+            masterFisher.status = True
+        else:
+            masterFisher.displayAchievement(screen)
 
 
     # Maximum frame rate pt. 2
